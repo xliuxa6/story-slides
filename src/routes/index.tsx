@@ -888,7 +888,8 @@ function StoryDeck() {
             position: "relative",
             background: BG,
             zoom: scale,
-          } as React.CSSProperties}
+          }}
+
         >
 
           <div
