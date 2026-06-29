@@ -252,9 +252,11 @@ const slides: Slide[] = [
             >
               117
             </div>
-            <Body size={20} color={MUTED}>
-              First review draft
-            </Body>
+            <div style={{ marginTop: 16 }}>
+              <Body size={24} color={MUTED}>
+                First review draft
+              </Body>
+            </div>
           </div>
           <div style={{ fontSize: 64, color: GOLD }}>→</div>
           <div style={{ textAlign: "center" }}>
@@ -269,9 +271,11 @@ const slides: Slide[] = [
             >
               49
             </div>
-            <Body size={20} color={MUTED}>
-              Final version after ZQ's comments (42 data pages)
-            </Body>
+            <div style={{ marginTop: 16 }}>
+              <Body size={24} color={MUTED}>
+                Final version after ZQ's comments (42 data pages)
+              </Body>
+            </div>
           </div>
           <div style={{ flex: 1 }}>
             <Body size={24} maxWidth={680}>
