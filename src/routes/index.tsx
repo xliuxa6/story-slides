@@ -38,12 +38,12 @@ type Slide = {
 };
 
 // ---------- typography ----------
-function Kicker({ children }: { children: ReactNode }) {
+function Kicker({ children, size = 20 }: { children: ReactNode; size?: number }) {
   return (
     <div
       style={{
         color: GOLD,
-        fontSize: 20,
+        fontSize: size,
         letterSpacing: "0.32em",
         fontWeight: 500,
         textTransform: "uppercase",
