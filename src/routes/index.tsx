@@ -905,23 +905,6 @@ function StoryDeck() {
             style={{
               position: "absolute",
               top: 56,
-              left: 64,
-              display: "flex",
-              alignItems: "center",
-              gap: 14,
-              color: MUTED,
-              fontSize: 18,
-              letterSpacing: "0.28em",
-              fontFamily: SANS,
-            }}
-          >
-            <div style={{ width: 28, height: 2, background: GOLD }} />
-            MC0003
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              top: 56,
               right: 64,
               color: MUTED,
               fontSize: 18,
