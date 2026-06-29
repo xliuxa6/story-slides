@@ -779,14 +779,12 @@ const slides: Slide[] = [
   },
 ];
 
-// ---------- 16:9 scaling ----------
+// ---------- width-based scaling (allows vertical scroll) ----------
 function useScale() {
   const [scale, setScale] = useState(1);
   useEffect(() => {
     const fit = () => {
-      const sx = window.innerWidth / 1920;
-      const sy = window.innerHeight / 1080;
-      setScale(Math.min(sx, sy));
+      setScale(Math.min(1, window.innerWidth / 1920));
     };
     fit();
     window.addEventListener("resize", fit);
@@ -794,6 +792,7 @@ function useScale() {
   }, []);
   return scale;
 }
+
 
 function StoryDeck() {
   const total = slides.length;
