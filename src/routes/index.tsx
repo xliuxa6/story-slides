@@ -4,23 +4,23 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MC0003 的故事 · 在不确定中，用科学推动确定性" },
+      { title: "The MC0003 Story · Driving Certainty Through Science" },
       {
         name: "description",
         content:
-          "一次 governance meeting 的复盘：从 117 页 slides 到 5 句话的精准 framing，再到 endorsement 与执行。",
+          "A governance-meeting retrospective: from 117 slides to 5 sentences of precise framing, to endorsement and execution.",
       },
-      { property: "og:title", content: "MC0003 的故事" },
+      { property: "og:title", content: "The MC0003 Story" },
       {
         property: "og:description",
-        content: "在不确定中，用科学推动确定性。",
+        content: "In uncertainty, drive certainty through science.",
       },
     ],
   }),
   component: StoryDeck,
 });
 
-// ---------- 视觉 token ----------
+// ---------- visual tokens ----------
 const BG = "#0B1220";
 const PANEL = "#101a2e";
 const INK = "#F4EFE6";
@@ -29,24 +29,25 @@ const GOLD = "#E6B566";
 const GOLD_SOFT = "#F2D38A";
 const LINE = "rgba(244,239,230,0.12)";
 
-// ---------- 类型 ----------
+const SERIF = "'Playfair Display', Georgia, serif";
+const SANS = "'Inter', system-ui, sans-serif";
+
 type Slide = {
   id: string;
-  kicker?: string;
   render: () => ReactNode;
 };
 
-// ---------- 通用排版块 ----------
+// ---------- typography ----------
 function Kicker({ children }: { children: ReactNode }) {
   return (
     <div
       style={{
         color: GOLD,
-        fontSize: 22,
+        fontSize: 20,
         letterSpacing: "0.32em",
         fontWeight: 500,
         textTransform: "uppercase",
-        fontFamily: "'Noto Sans SC', sans-serif",
+        fontFamily: SANS,
       }}
     >
       {children}
@@ -54,11 +55,11 @@ function Kicker({ children }: { children: ReactNode }) {
   );
 }
 
-function Title({ children, size = 88 }: { children: ReactNode; size?: number }) {
+function Title({ children, size = 80 }: { children: ReactNode; size?: number }) {
   return (
     <h2
       style={{
-        fontFamily: "'Noto Serif SC', serif",
+        fontFamily: SERIF,
         fontWeight: 700,
         fontSize: size,
         lineHeight: 1.1,
@@ -74,7 +75,7 @@ function Title({ children, size = 88 }: { children: ReactNode; size?: number }) 
 
 function Body({
   children,
-  size = 30,
+  size = 26,
   color = INK,
   maxWidth = 1500,
 }: {
@@ -86,7 +87,7 @@ function Body({
   return (
     <p
       style={{
-        fontFamily: "'Noto Sans SC', sans-serif",
+        fontFamily: SANS,
         fontWeight: 400,
         fontSize: size,
         lineHeight: 1.6,
@@ -101,16 +102,7 @@ function Body({
 }
 
 function GoldRule() {
-  return (
-    <div
-      style={{
-        width: 96,
-        height: 3,
-        background: GOLD,
-        borderRadius: 2,
-      }}
-    />
-  );
+  return <div style={{ width: 96, height: 3, background: GOLD, borderRadius: 2 }} />;
 }
 
 function SlideShell({
@@ -133,7 +125,7 @@ function SlideShell({
         display: "flex",
         flexDirection: "column",
         justifyContent: align === "center" ? "center" : "flex-start",
-        gap: 48,
+        gap: 44,
       }}
     >
       {children}
@@ -141,7 +133,7 @@ function SlideShell({
   );
 }
 
-// ---------- 各幻灯片内容 ----------
+// ---------- slides ----------
 const slides: Slide[] = [
   {
     id: "cover",
@@ -150,23 +142,23 @@ const slides: Slide[] = [
         <Kicker>MC0003 · A Story</Kicker>
         <h1
           style={{
-            fontFamily: "'Noto Serif SC', serif",
+            fontFamily: SERIF,
             fontWeight: 900,
-            fontSize: 140,
+            fontSize: 132,
             lineHeight: 1.05,
             color: INK,
             margin: 0,
             letterSpacing: "-0.03em",
           }}
         >
-          在不确定中
+          In Uncertainty,
           <br />
-          <span style={{ color: GOLD }}>用科学推动确定性</span>
+          <span style={{ color: GOLD, fontStyle: "italic" }}>Drive Certainty</span> Through Science.
         </h1>
-        <div style={{ display: "flex", gap: 32, alignItems: "center", marginTop: 24 }}>
+        <div style={{ display: "flex", gap: 32, alignItems: "center", marginTop: 16 }}>
           <div style={{ width: 64, height: 2, background: GOLD }} />
-          <Body size={28} color={MUTED}>
-            一次 governance meeting 的复盘 · MC0003 的 endorsement 之路
+          <Body size={26} color={MUTED}>
+            A governance-meeting retrospective · The road to MC0003's endorsement
           </Body>
         </div>
       </SlideShell>
@@ -176,14 +168,15 @@ const slides: Slide[] = [
     id: "context",
     render: () => (
       <SlideShell>
-        <Kicker>背景</Kicker>
-        <Title>第二次 governance meeting 的压力</Title>
+        <Kicker>The Context</Kicker>
+        <Title>Pressure going into the second governance meeting</Title>
         <GoldRule />
-        <Body size={34} maxWidth={1500}>
-          第一次 meeting 我们 proposed 了 <span style={{ color: GOLD_SOFT }}>3 个项目</span>
-          ，却没有明确 endorse 哪一个。
+        <Body size={32} maxWidth={1500}>
+          In the first meeting we proposed <span style={{ color: GOLD_SOFT }}>three projects</span>,
+          but none were explicitly endorsed.
           <br />
-          所以到了第二次会议，<span style={{ color: GOLD_SOFT }}>必须有结果</span>—— 我们带着很大的压力上场。
+          So the second meeting had to produce a decision —{" "}
+          <span style={{ color: GOLD_SOFT }}>we walked in carrying real pressure</span>.
         </Body>
       </SlideShell>
     ),
@@ -192,22 +185,22 @@ const slides: Slide[] = [
     id: "why-mdg",
     render: () => (
       <SlideShell>
-        <Kicker>一 · 会议准备</Kicker>
-        <Title size={76}>为什么是分子胶降解剂（MDG）？</Title>
+        <Kicker>Part 1 · Preparation</Kicker>
+        <Title size={70}>Why molecular glue degraders (MGDs)?</Title>
         <GoldRule />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32, marginTop: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 28, marginTop: 8 }}>
           {[
             {
-              h: "病人可及与依从",
-              p: "小分子口服热度持续上升，规避大分子类似 ADA 的问题。",
+              h: "Patient access & adherence",
+              p: "Oral small molecules keep gaining momentum, avoiding ADA-style issues seen with biologics.",
             },
             {
-              h: "Degrader 的独特价值",
-              p: "解决抑制剂的耐药问题，覆盖激酶以外的活性。",
+              h: "What degraders unlock",
+              p: "Address inhibitor resistance and reach activities beyond the kinase domain.",
             },
             {
-              h: "默沙东内部空白",
-              p: "MDG 资产薄弱，值得系统性补位。",
+              h: "An internal gap at Merck",
+              p: "Our MGD portfolio is thin — a meaningful white space worth filling.",
             },
           ].map((c) => (
             <div
@@ -223,15 +216,18 @@ const slides: Slide[] = [
                 minHeight: 280,
               }}
             >
-              <div style={{ color: GOLD, fontSize: 22, fontWeight: 500 }}>{c.h}</div>
-              <Body size={24} color={MUTED}>
+              <div style={{ color: GOLD, fontSize: 22, fontWeight: 600, fontFamily: SANS }}>
+                {c.h}
+              </div>
+              <Body size={22} color={MUTED}>
                 {c.p}
               </Body>
             </div>
           ))}
         </div>
-        <Body size={24} color={MUTED} maxWidth={1500}>
-          自己原是做大分子的，这一轮边做边学：怎么评价小分子，怎么评估 MDG，怎么识别 differentiation 与控制风险。
+        <Body size={22} color={MUTED} maxWidth={1500}>
+          Coming from a biologics background, I learned on the fly how to evaluate small molecules
+          and MGDs — how to spot differentiation and manage risk.
         </Body>
       </SlideShell>
     ),
@@ -240,14 +236,14 @@ const slides: Slide[] = [
     id: "from-117-to-49",
     render: () => (
       <SlideShell>
-        <Kicker>一 · 会议准备</Kicker>
-        <Title size={76}>从 117 页，到 49 页</Title>
+        <Kicker>Part 1 · Preparation</Kicker>
+        <Title size={72}>From 117 pages to 49</Title>
         <GoldRule />
-        <div style={{ display: "flex", alignItems: "center", gap: 64, marginTop: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 56, marginTop: 16 }}>
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                fontFamily: "'Noto Serif SC', serif",
+                fontFamily: SERIF,
                 fontSize: 180,
                 color: INK,
                 lineHeight: 1,
@@ -256,15 +252,15 @@ const slides: Slide[] = [
             >
               117
             </div>
-            <Body size={22} color={MUTED}>
-              第一版 review slides
+            <Body size={20} color={MUTED}>
+              First review draft
             </Body>
           </div>
           <div style={{ fontSize: 64, color: GOLD }}>→</div>
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                fontFamily: "'Noto Serif SC', serif",
+                fontFamily: SERIF,
                 fontSize: 180,
                 color: GOLD,
                 lineHeight: 1,
@@ -273,17 +269,19 @@ const slides: Slide[] = [
             >
               49
             </div>
-            <Body size={22} color={MUTED}>
-              ZQ comment 后定稿（数据 42 页）
+            <Body size={20} color={MUTED}>
+              Final version after ZQ's comments (42 data pages)
             </Body>
           </div>
           <div style={{ flex: 1 }}>
-            <Body size={26} maxWidth={680}>
-              在原本 5 个已完成 deep dive 的项目之上，又陆续加进 10 个 high-level 项目。
+            <Body size={24} maxWidth={680}>
+              On top of five projects with completed deep dives, ten more high-level projects were
+              folded in along the way.
               <br />
               <br />
-              <span style={{ color: GOLD_SOFT }}>定稿到上会只有 6 天</span>
-              ，但 117 页里任何一张数据都能拎出来讲—— 没有图，也能说清楚。
+              <span style={{ color: GOLD_SOFT }}>Only six days from lock to meeting</span> — yet
+              every chart in the original 117 pages could be talked through from memory, without the
+              slide on screen.
             </Body>
           </div>
         </div>
@@ -294,10 +292,10 @@ const slides: Slide[] = [
     id: "challenge",
     render: () => (
       <SlideShell>
-        <Kicker>二 · 会上</Kicker>
-        <Title size={80}>像"拿着菜单点戏"</Title>
+        <Kicker>Part 2 · In the Meeting</Kicker>
+        <Title size={76}>Like ordering from a menu</Title>
         <GoldRule />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, marginTop: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, marginTop: 8 }}>
           <div
             style={{
               background: PANEL,
@@ -306,9 +304,14 @@ const slides: Slide[] = [
               padding: "40px 36px",
             }}
           >
-            <div style={{ color: GOLD, fontSize: 24, marginBottom: 16 }}>5 个主项目</div>
-            <div style={{ fontSize: 56, color: INK, fontFamily: "'Noto Serif SC', serif", fontWeight: 700 }}>
-              10–15<span style={{ fontSize: 28, color: MUTED, marginLeft: 8 }}>分钟 / 个</span>
+            <div style={{ color: GOLD, fontSize: 22, marginBottom: 16, fontFamily: SANS }}>
+              5 main projects
+            </div>
+            <div style={{ fontSize: 56, color: INK, fontFamily: SERIF, fontWeight: 700 }}>
+              10–15
+              <span style={{ fontSize: 26, color: MUTED, marginLeft: 10, fontFamily: SANS }}>
+                min each
+              </span>
             </div>
           </div>
           <div
@@ -319,15 +322,20 @@ const slides: Slide[] = [
               padding: "40px 36px",
             }}
           >
-            <div style={{ color: GOLD, fontSize: 24, marginBottom: 16 }}>10 个 high-level</div>
-            <div style={{ fontSize: 56, color: INK, fontFamily: "'Noto Serif SC', serif", fontWeight: 700 }}>
-              5<span style={{ fontSize: 28, color: MUTED, marginLeft: 8 }}>分钟 / 个 · 看 committee 兴趣</span>
+            <div style={{ color: GOLD, fontSize: 22, marginBottom: 16, fontFamily: SANS }}>
+              10 high-level projects
+            </div>
+            <div style={{ fontSize: 56, color: INK, fontFamily: SERIF, fontWeight: 700 }}>
+              5
+              <span style={{ fontSize: 26, color: MUTED, marginLeft: 10, fontFamily: SANS }}>
+                min each · only if the committee was curious
+              </span>
             </div>
           </div>
         </div>
-        <Body size={26} color={MUTED} maxWidth={1500}>
-          时间紧到每一句话都要斟酌；讨论一旦展开就容易超时。到了会议后半段，HQ 领导已经很累，
-          不太熟悉的靶点几乎没人有精力继续追问。
+        <Body size={24} color={MUTED} maxWidth={1500}>
+          Every sentence had to be weighed. Discussions ran long. By the back half of the meeting,
+          HQ leaders were tired — for unfamiliar targets, there was barely any energy left to dig in.
         </Body>
       </SlideShell>
     ),
@@ -336,27 +344,29 @@ const slides: Slide[] = [
     id: "decision",
     render: () => (
       <SlideShell align="center" paddingX={200}>
-        <Kicker>二 · 会上 · 我的判断</Kicker>
+        <Kicker>Part 2 · The Call I Made</Kicker>
         <h2
           style={{
-            fontFamily: "'Noto Serif SC', serif",
+            fontFamily: SERIF,
             fontWeight: 900,
-            fontSize: 110,
+            fontSize: 100,
             lineHeight: 1.1,
             color: INK,
             margin: 0,
             letterSpacing: "-0.02em",
           }}
         >
-          不能再铺细节，
+          Stop layering detail.
           <br />
-          要用<span style={{ color: GOLD }}>最少的话</span>，
+          Land the <span style={{ color: GOLD, fontStyle: "italic" }}>
+            decisive scientific point
+          </span>
           <br />
-          打进<span style={{ color: GOLD }}>最关键的科学判断点</span>。
+          in the <span style={{ color: GOLD, fontStyle: "italic" }}>fewest words possible</span>.
         </h2>
-        <Body size={28} color={MUTED} maxWidth={1300}>
-          "Nothing to lose，拼一把"—— 切换到主动推荐模式，用精准的科学 framing
-          把大家拉回最重要的决策维度。
+        <Body size={26} color={MUTED} maxWidth={1300}>
+          "Nothing to lose — let's go." I switched into active-recommendation mode and used precise
+          scientific framing to pull the room back to what actually mattered.
         </Body>
       </SlideShell>
     ),
@@ -364,40 +374,40 @@ const slides: Slide[] = [
   {
     id: "five-points",
     render: () => (
-      <SlideShell paddingX={110}>
-        <Kicker>二 · 会上 · 我只争取到 5 句话</Kicker>
-        <Title size={64}>这 5 句话，分别对应一个关键维度</Title>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 20, marginTop: 12 }}>
+      <SlideShell paddingX={100}>
+        <Kicker>Part 2 · I got 5 sentences. Here they are.</Kicker>
+        <Title size={56}>Each sentence mapped to a key decision dimension</Title>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 18, marginTop: 8 }}>
           {[
             {
               n: "01",
-              tag: "创新性",
-              t: "新的 MDG 平台",
-              p: "逻辑合理，能持续产出新靶点；平台本身具备价值。",
+              tag: "Innovation",
+              t: "A new MGD platform",
+              p: "Mechanistically sound and capable of generating new targets — platform value, not a one-off.",
             },
             {
               n: "02",
-              tag: "中国优势",
-              t: "中国优势癌种 + 泛瘤潜力",
-              p: "已显示良好药效，不只是概念，而是有数据支撑。",
+              tag: "China advantage",
+              t: "China-prevalent cancers + pan-tumor potential",
+              p: "Strong efficacy already shown — not a concept, but backed by data.",
             },
             {
               n: "03",
-              tag: "科学差异化",
-              t: "新的 / 多重 MOA",
-              p: "科学上更有差异化，更易形成长期价值。",
+              tag: "Differentiation",
+              t: "Novel or multi-MOA",
+              p: "Scientifically more differentiated, and likelier to create long-term value.",
             },
             {
               n: "04",
-              tag: "风险可控",
-              t: "选择性与安全性可接受",
-              p: "安全性与选择性是项目能否往前的必答题。",
+              tag: "Risk in check",
+              t: "Acceptable selectivity & safety",
+              p: "Always the must-answer question for whether a project can move forward.",
             },
             {
               n: "05",
-              tag: "Asset Stage",
-              t: "IND 已 submitted",
-              p: "不早不晚，正处于适合推进的阶段。",
+              tag: "Asset stage",
+              t: "IND already submitted",
+              p: "Neither too early nor too late — right in the sweet spot to advance.",
             },
           ].map((c) => (
             <div
@@ -407,28 +417,30 @@ const slides: Slide[] = [
                 border: `1px solid ${LINE}`,
                 borderTop: `3px solid ${GOLD}`,
                 borderRadius: 14,
-                padding: "28px 22px",
+                padding: "26px 20px",
                 display: "flex",
                 flexDirection: "column",
-                gap: 14,
-                minHeight: 420,
+                gap: 12,
+                minHeight: 440,
               }}
             >
-              <div style={{ color: GOLD, fontSize: 18, letterSpacing: "0.2em" }}>{c.n}</div>
-              <div style={{ color: MUTED, fontSize: 18 }}>{c.tag}</div>
+              <div style={{ color: GOLD, fontSize: 16, letterSpacing: "0.22em", fontFamily: SANS }}>
+                {c.n}
+              </div>
+              <div style={{ color: MUTED, fontSize: 16, fontFamily: SANS }}>{c.tag}</div>
               <div
                 style={{
-                  fontFamily: "'Noto Serif SC', serif",
-                  fontSize: 28,
+                  fontFamily: SERIF,
+                  fontSize: 26,
                   color: INK,
                   fontWeight: 700,
-                  lineHeight: 1.3,
+                  lineHeight: 1.25,
                 }}
               >
                 {c.t}
               </div>
               <div style={{ height: 1, background: LINE }} />
-              <Body size={20} color={MUTED}>
+              <Body size={18} color={MUTED}>
                 {c.p}
               </Body>
             </div>
@@ -441,20 +453,24 @@ const slides: Slide[] = [
     id: "reaction",
     render: () => (
       <SlideShell align="center" paddingX={200}>
-        <Kicker>二 · 会上 · 现场反应</Kicker>
+        <Kicker>Part 2 · The Reaction</Kicker>
         <h2
           style={{
-            fontFamily: "'Noto Serif SC', serif",
+            fontFamily: SERIF,
             fontWeight: 700,
-            fontSize: 88,
+            fontSize: 82,
             lineHeight: 1.15,
             color: INK,
             margin: 0,
           }}
         >
-          虽然大家已经很疲劳，
+          Even with a tired room,
           <br />
-          但这几句话<span style={{ color: GOLD }}>把项目核心价值重新打出来了</span>。
+          those few sentences{" "}
+          <span style={{ color: GOLD, fontStyle: "italic" }}>
+            put the project's core value back on the table
+          </span>
+          .
         </h2>
         <div
           style={{
@@ -466,9 +482,9 @@ const slides: Slide[] = [
             maxWidth: 1300,
           }}
         >
-          <Body size={28}>
-            当场结论：让 chemistry 的 <span style={{ color: GOLD_SOFT }}>Johnny</span> 看一下，
-            如果没问题，就可以推进。
+          <Body size={26}>
+            On-the-spot decision: have <span style={{ color: GOLD_SOFT }}>Johnny</span> in chemistry
+            take a look — if it checks out, we move forward.
           </Body>
         </div>
       </SlideShell>
@@ -478,14 +494,16 @@ const slides: Slide[] = [
     id: "learning",
     render: () => (
       <SlideShell align="center" paddingX={220}>
-        <Kicker>二 · 会上 · 我学到了什么</Kicker>
-        <Title size={92}>
-          科学表达<span style={{ color: GOLD }}>真的影响了决策方向</span>，
+        <Kicker>Part 2 · What I Took Away</Kicker>
+        <Title size={84}>
+          Scientific communication{" "}
+          <span style={{ color: GOLD, fontStyle: "italic" }}>actually shaped the decision</span> —
           <br />
-          而不是只停留在信息传递层面。
+          not just relayed information.
         </Title>
-        <Body size={28} color={MUTED} maxWidth={1300}>
-          这件事让我后续在会议交流中更有底气。
+        <Body size={26} color={MUTED} maxWidth={1300}>
+          That experience gave me real confidence going into every subsequent leadership
+          conversation.
         </Body>
       </SlideShell>
     ),
@@ -494,10 +512,10 @@ const slides: Slide[] = [
     id: "post-meeting",
     render: () => (
       <SlideShell>
-        <Kicker>三 · 会后</Kicker>
-        <Title size={76}>越接近成功，越要谨慎</Title>
+        <Kicker>Part 3 · After the Meeting</Kicker>
+        <Title size={72}>The closer you get to a yes, the more careful you have to be</Title>
         <GoldRule />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, marginTop: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 36, marginTop: 12 }}>
           <div
             style={{
               background: PANEL,
@@ -506,8 +524,10 @@ const slides: Slide[] = [
               padding: "36px 32px",
             }}
           >
-            <div style={{ color: GOLD, fontSize: 22, marginBottom: 14 }}>寇总赴美</div>
-            <Body size={26}>专门去 engage Johnny，确保 chemistry 这关稳。</Body>
+            <div style={{ color: GOLD, fontSize: 20, marginBottom: 14, fontFamily: SANS }}>
+              Director Kou's U.S. trip
+            </div>
+            <Body size={24}>Met with Johnny in person to make sure chemistry was solid.</Body>
           </div>
           <div
             style={{
@@ -517,24 +537,26 @@ const slides: Slide[] = [
               padding: "36px 32px",
             }}
           >
-            <div style={{ color: GOLD, fontSize: 22, marginBottom: 14 }}>我做了什么</div>
-            <Body size={26}>
-              准备一份详细数据版，notes 标上重点，进一步展示项目优势。
+            <div style={{ color: GOLD, fontSize: 20, marginBottom: 14, fontFamily: SANS }}>
+              What I prepared
+            </div>
+            <Body size={24}>
+              A detailed data deck with annotated speaker notes to deepen the case for the asset.
             </Body>
           </div>
         </div>
         <div
           style={{
-            marginTop: 8,
-            padding: "28px 36px",
+            marginTop: 4,
+            padding: "26px 36px",
             border: `1px solid ${GOLD}`,
             borderRadius: 14,
             display: "inline-flex",
             alignSelf: "flex-start",
           }}
         >
-          <Body size={30} color={GOLD_SOFT}>
-            ✓ 最终拿到 endorsement
+          <Body size={28} color={GOLD_SOFT}>
+            ✓ Endorsement secured.
           </Body>
         </div>
       </SlideShell>
@@ -544,19 +566,20 @@ const slides: Slide[] = [
     id: "exec-rigor",
     render: () => (
       <SlideShell>
-        <Kicker>四 · Endorse 之后的执行</Kicker>
-        <Title size={72}>拿到 endorsement，只是第一步</Title>
+        <Kicker>Part 4 · After the Endorsement</Kicker>
+        <Title size={68}>Getting endorsed was only step one</Title>
         <GoldRule />
-        <Body size={32} maxWidth={1500}>
-          推进结果的同时，<span style={{ color: GOLD_SOFT }}>不放弃科学严谨性</span>。
-          Deep dive 流程不能少—— 它是我们控制风险的关键环节。
+        <Body size={28} maxWidth={1500}>
+          Push for results, but{" "}
+          <span style={{ color: GOLD_SOFT }}>never let go of scientific rigor</span>. The deep-dive
+          process stays — it's the core of how we control risk.
         </Body>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, marginTop: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18, marginTop: 12 }}>
           {[
-            "化合物理化性质",
-            "体内外药效模型合理性",
+            "Physicochemical properties",
+            "In vitro / in vivo efficacy models",
             "PK / PD",
-            "临床方案设计",
+            "Clinical study design",
           ].map((t, i) => (
             <div
               key={t}
@@ -568,14 +591,14 @@ const slides: Slide[] = [
                 minHeight: 200,
               }}
             >
-              <div style={{ color: GOLD, fontSize: 18, letterSpacing: "0.2em" }}>
+              <div style={{ color: GOLD, fontSize: 16, letterSpacing: "0.22em", fontFamily: SANS }}>
                 STEP {String(i + 1).padStart(2, "0")}
               </div>
               <div
                 style={{
                   marginTop: 18,
-                  fontFamily: "'Noto Serif SC', serif",
-                  fontSize: 26,
+                  fontFamily: SERIF,
+                  fontSize: 24,
                   color: INK,
                   fontWeight: 700,
                   lineHeight: 1.3,
@@ -586,8 +609,9 @@ const slides: Slide[] = [
             </div>
           ))}
         </div>
-        <Body size={22} color={MUTED} maxWidth={1500}>
-          新 MOA 对多数团队成员是第一次接触，和各个 function 都做了线下 1:1 对齐策略。
+        <Body size={20} color={MUTED} maxWidth={1500}>
+          With a new MOA — new to most of the team — I ran 1:1 alignments with every function to
+          settle the overall strategy.
         </Body>
       </SlideShell>
     ),
@@ -596,15 +620,27 @@ const slides: Slide[] = [
     id: "exec-validation",
     render: () => (
       <SlideShell>
-        <Kicker>四 · 执行 · 实验验证的硬骨头</Kicker>
-        <Title size={72}>每一个点，都在考验我们能不能在科学上真正站得住</Title>
+        <Kicker>Part 4 · The Validation Work</Kicker>
+        <Title size={62}>Every point tested whether we could really stand on the science</Title>
         <GoldRule />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28, marginTop: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginTop: 12 }}>
           {[
-            { t: "三元复合亲和力检测", p: "新 MOA 的关键证据，方法本身就要被反复打磨。" },
-            { t: "3D 模型才能看到药效", p: "体外读出更难，但更接近真实生物学。" },
-            { t: "体外模型怎么选", p: "选择决定了后续数据的可解释性。" },
-            { t: "药效读出怎么定义", p: "不只是「有效」，而是「如何度量有效」。" },
+            {
+              t: "Ternary-complex affinity assay",
+              p: "The pivotal evidence for a new MOA — the method itself had to be refined repeatedly.",
+            },
+            {
+              t: "Efficacy only visible in 3D models",
+              p: "Harder readout, but far closer to real biology.",
+            },
+            {
+              t: "Choosing the right in vitro model",
+              p: "Model choice determines how interpretable every downstream dataset becomes.",
+            },
+            {
+              t: "Defining the efficacy readout",
+              p: "Not just \"does it work\" — but \"how do we measure that it works\".",
+            },
           ].map((c) => (
             <div
               key={c.t}
@@ -612,9 +648,9 @@ const slides: Slide[] = [
                 background: PANEL,
                 border: `1px solid ${LINE}`,
                 borderRadius: 16,
-                padding: "32px 32px",
+                padding: "30px 32px",
                 display: "flex",
-                gap: 24,
+                gap: 22,
                 alignItems: "flex-start",
               }}
             >
@@ -624,30 +660,24 @@ const slides: Slide[] = [
                   height: 10,
                   borderRadius: 999,
                   background: GOLD,
-                  marginTop: 18,
+                  marginTop: 16,
                   flexShrink: 0,
                 }}
               />
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                <div
-                  style={{
-                    fontFamily: "'Noto Serif SC', serif",
-                    fontSize: 30,
-                    color: INK,
-                    fontWeight: 700,
-                  }}
-                >
+                <div style={{ fontFamily: SERIF, fontSize: 28, color: INK, fontWeight: 700 }}>
                   {c.t}
                 </div>
-                <Body size={22} color={MUTED}>
+                <Body size={20} color={MUTED}>
                   {c.p}
                 </Body>
               </div>
             </div>
           ))}
         </div>
-        <Body size={22} color={MUTED} maxWidth={1500}>
-          验证不是完全重复，要从更宽的范围去看数据是否潜藏风险。
+        <Body size={20} color={MUTED} maxWidth={1500}>
+          Validation isn't repetition — it's looking across a wider surface for risks the original
+          data may have hidden.
         </Body>
       </SlideShell>
     ),
@@ -656,25 +686,25 @@ const slides: Slide[] = [
     id: "summary",
     render: () => (
       <SlideShell paddingX={140}>
-        <Kicker>五 · 总结</Kicker>
-        <Title size={72}>真正的 Scientific Leadership</Title>
+        <Kicker>Part 5 · The Takeaway</Kicker>
+        <Title size={68}>What scientific leadership really means</Title>
         <GoldRule />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28, marginTop: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginTop: 12 }}>
           {[
             {
               n: "01",
-              t: "识别关键科学维度",
-              p: "在不确定的环境里，快速看清最该被讨论的那几件事。",
+              t: "Identify the decisive scientific dimensions",
+              p: "In uncertain environments, quickly see which few things actually matter.",
             },
             {
               n: "02",
-              t: "简洁影响 stakeholder",
-              p: "用最准确、最简洁的方式影响判断，不只传递信息。",
+              t: "Move stakeholders with concise framing",
+              p: "Influence judgment with precision — don't just transmit information.",
             },
             {
               n: "03",
-              t: "坚持科学风险控制",
-              p: "在推动结果的同时，不放弃 deep dive 与严谨性。",
+              t: "Hold the line on scientific rigor",
+              p: "Drive outcomes without ever giving up deep-dives and disciplined risk control.",
             },
           ].map((c) => (
             <div
@@ -692,8 +722,8 @@ const slides: Slide[] = [
             >
               <div
                 style={{
-                  fontFamily: "'Noto Serif SC', serif",
-                  fontSize: 64,
+                  fontFamily: SERIF,
+                  fontSize: 60,
                   color: GOLD,
                   fontWeight: 900,
                   lineHeight: 1,
@@ -703,8 +733,8 @@ const slides: Slide[] = [
               </div>
               <div
                 style={{
-                  fontFamily: "'Noto Serif SC', serif",
-                  fontSize: 32,
+                  fontFamily: SERIF,
+                  fontSize: 28,
                   color: INK,
                   fontWeight: 700,
                   lineHeight: 1.3,
@@ -712,7 +742,7 @@ const slides: Slide[] = [
               >
                 {c.t}
               </div>
-              <Body size={22} color={MUTED}>
+              <Body size={20} color={MUTED}>
                 {c.p}
               </Body>
             </div>
@@ -729,14 +759,15 @@ const slides: Slide[] = [
         >
           <div
             style={{
-              fontFamily: "'Noto Serif SC', serif",
+              fontFamily: SERIF,
               fontSize: 44,
               color: INK,
               fontWeight: 700,
               lineHeight: 1.3,
+              fontStyle: "italic",
             }}
           >
-            在不确定中，<span style={{ color: GOLD }}>用科学推动确定性</span>。
+            In uncertainty, <span style={{ color: GOLD }}>drive certainty through science.</span>
           </div>
         </div>
       </SlideShell>
@@ -744,7 +775,7 @@ const slides: Slide[] = [
   },
 ];
 
-// ---------- 缩放 16:9 画布 ----------
+// ---------- 16:9 scaling ----------
 function useScale() {
   const [scale, setScale] = useState(1);
   useEffect(() => {
@@ -765,7 +796,6 @@ function StoryDeck() {
   const [index, setIndex] = useState(0);
   const scale = useScale();
 
-  // hash sync
   useEffect(() => {
     const fromHash = () => {
       const m = /^#(\d+)$/.exec(window.location.hash);
@@ -820,10 +850,9 @@ function StoryDeck() {
         color: INK,
         position: "relative",
         overflow: "hidden",
-        fontFamily: "'Noto Sans SC', sans-serif",
+        fontFamily: SANS,
       }}
     >
-      {/* 顶部进度条 */}
       <div
         style={{
           position: "fixed",
@@ -837,7 +866,6 @@ function StoryDeck() {
         }}
       />
 
-      {/* 画布容器 */}
       <div
         style={{
           position: "relative",
@@ -860,7 +888,6 @@ function StoryDeck() {
             background: BG,
           }}
         >
-          {/* 装饰背景 */}
           <div
             style={{
               position: "absolute",
@@ -870,7 +897,6 @@ function StoryDeck() {
               pointerEvents: "none",
             }}
           />
-          {/* 角标 */}
           <div
             style={{
               position: "absolute",
@@ -880,8 +906,9 @@ function StoryDeck() {
               alignItems: "center",
               gap: 14,
               color: MUTED,
-              fontSize: 20,
-              letterSpacing: "0.24em",
+              fontSize: 18,
+              letterSpacing: "0.28em",
+              fontFamily: SANS,
             }}
           >
             <div style={{ width: 28, height: 2, background: GOLD }} />
@@ -893,16 +920,16 @@ function StoryDeck() {
               top: 56,
               right: 64,
               color: MUTED,
-              fontSize: 20,
-              letterSpacing: "0.24em",
+              fontSize: 18,
+              letterSpacing: "0.28em",
               fontVariantNumeric: "tabular-nums",
+              fontFamily: SANS,
             }}
           >
             {String(index + 1).padStart(2, "0")} <span style={{ color: GOLD }}>/</span>{" "}
             {String(total).padStart(2, "0")}
           </div>
 
-          {/* 内容（带入场动画 key） */}
           <div
             key={slide.id}
             style={{
@@ -916,7 +943,6 @@ function StoryDeck() {
         </div>
       </div>
 
-      {/* 底部控制 */}
       <div
         style={{
           position: "fixed",
@@ -934,22 +960,22 @@ function StoryDeck() {
           zIndex: 40,
         }}
       >
-        <NavBtn onClick={() => go(index - 1)} disabled={index === 0} label="← 上一页" />
+        <NavBtn onClick={() => go(index - 1)} disabled={index === 0} label="← Prev" />
         <div
           style={{
             color: MUTED,
-            fontSize: 14,
+            fontSize: 13,
             letterSpacing: "0.2em",
             padding: "0 10px",
             fontVariantNumeric: "tabular-nums",
+            fontFamily: SANS,
           }}
         >
           {index + 1} / {total}
         </div>
-        <NavBtn onClick={() => go(index + 1)} disabled={index === total - 1} label="下一页 →" />
+        <NavBtn onClick={() => go(index + 1)} disabled={index === total - 1} label="Next →" />
       </div>
 
-      {/* 提示 */}
       <div
         style={{
           position: "fixed",
@@ -957,11 +983,12 @@ function StoryDeck() {
           right: 28,
           color: MUTED,
           fontSize: 12,
-          letterSpacing: "0.2em",
+          letterSpacing: "0.22em",
           opacity: 0.6,
+          fontFamily: SANS,
         }}
       >
-        ← → 翻页
+        ← → to navigate
       </div>
 
       <style>{`
@@ -994,11 +1021,11 @@ function NavBtn({
         border: disabled ? `1px solid ${LINE}` : "none",
         borderRadius: 999,
         padding: "10px 22px",
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: 600,
         letterSpacing: "0.08em",
         cursor: disabled ? "not-allowed" : "pointer",
-        fontFamily: "'Noto Sans SC', sans-serif",
+        fontFamily: SANS,
         transition: "transform 120ms ease",
       }}
     >
