@@ -489,8 +489,8 @@ const slides: Slide[] = [
           }}
         >
           <Body size={26}>
-            On-the-spot decision: have <span style={{ color: GOLD_SOFT }}>Johnny</span> in chemistry
-            take a look — if it checks out, we move forward.
+            On-the-spot decision: “Have <span style={{ color: GOLD_SOFT }}>Johnny</span> in Chemistry
+            review it; if no major issue, proceed”
           </Body>
         </div>
       </SlideShell>
