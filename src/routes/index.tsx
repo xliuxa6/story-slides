@@ -120,16 +120,18 @@ function SlideShell({
     <div
       style={{
         width: "100%",
-        height: "100%",
+        minHeight: 1080,
         padding: `${paddingY}px ${paddingX}px`,
         display: "flex",
         flexDirection: "column",
         justifyContent: align === "center" ? "center" : "flex-start",
         gap: 44,
+        boxSizing: "border-box",
       }}
     >
       {children}
     </div>
+
   );
 }
 
