@@ -878,6 +878,7 @@ function StoryDeck() {
           minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
+          overflowX: "hidden",
         }}
       >
         <div
@@ -886,12 +887,10 @@ function StoryDeck() {
             minHeight: 1080,
             position: "relative",
             background: BG,
-            transform: `scale(${scale})`,
-            transformOrigin: "top center",
-            // shrink the layout footprint so the page doesn't reserve unscaled space
-            marginBottom: `calc((${scale} - 1) * 1080px)`,
-          }}
+            zoom: scale,
+          } as React.CSSProperties}
         >
+
           <div
             style={{
               position: "absolute",
