@@ -497,24 +497,6 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "learning",
-    render: () => (
-      <SlideShell align="center" paddingX={220}>
-        <Kicker size={24}>Part 2 · What I Took Away</Kicker>
-        <Title size={84}>
-          Scientific communication{" "}
-          <span style={{ color: GOLD, fontStyle: "italic" }}>actually shaped the decision</span> —
-          <br />
-          not just relayed information.
-        </Title>
-        <Body size={30} color={MUTED} maxWidth={1300}>
-          That experience gave me real confidence going into every subsequent leadership
-          conversation.
-        </Body>
-      </SlideShell>
-    ),
-  },
-  {
     id: "post-meeting",
     render: () => (
       <SlideShell>
